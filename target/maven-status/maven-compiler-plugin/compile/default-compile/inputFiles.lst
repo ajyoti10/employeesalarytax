@@ -1,0 +1,15 @@
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/service/EmployeeService.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/controller/impl/EmployeeControllerImpl.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/repository/EmployeeRepository.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/controller/EmployeeController.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/dto/ErrorDTO.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/entity/Employee.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/exception/InvalidParameterException.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/controller/TestAPIController.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/dto/CreateEmployeeRequestDTO.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/entity/EmployeePhoneEntity.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/EmployeeSalaryApplication.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/dto/TaxDeductionResponseDTO.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/exception/DemoException.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/enums/ErrorCode.java
+/var/www/html/java-project/employee-salary/src/main/java/com/example/employeesalary/dto/BaseResponseDTO.java
