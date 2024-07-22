@@ -5,16 +5,29 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import com.example.employeesalary.dto.ErrorDTO;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class InvalidParameterException extends DemoException{
-    private static final Logger logger = LoggerFactory.getLogger(InvalidParameterException.class);
+@Setter
+public class InvalidParameterException extends RuntimeException{
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = -6406289686808222972L;
+	private static final Logger logger = LoggerFactory.getLogger(InvalidParameterException.class);
 
-    public InvalidParameterException(Object dto, List<ErrorDTO> errors) {
-        super(dto, errors.toArray(new ErrorDTO[] {}));
-        logger.info("InvalidParameterException call");
+    private List<ErrorDTO> errors;
+
+    public InvalidParameterException(List<ErrorDTO> errors) {
+        super("Validation failed");
+        this.errors = errors;
     }
+
+    public List<ErrorDTO> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<ErrorDTO> errors) {
+        this.errors = errors;
+    }
+
 
 }

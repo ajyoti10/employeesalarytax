@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 public class DemoException extends RuntimeException{
-    private static final Logger logger = LoggerFactory.getLogger(InvalidParameterException.class);
+    private static final Logger logger = LoggerFactory.getLogger(DemoException.class);
     private static final long serialVersionUID = 7932731402935556075L;
 
     protected final Object dto;

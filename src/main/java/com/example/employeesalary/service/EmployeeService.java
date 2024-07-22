@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.employeesalary.entity.Employee;
+import com.example.employeesalary.entity.EmployeePhone;
 import com.example.employeesalary.exception.InvalidParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.example.employeesalary.repository.EmployeeRepository;
+import com.example.employeesalary.repository.EmployeePhoneRepository;
 import com.example.employeesalary.dto.*;
 import com.example.employeesalary.enums.ErrorCode;
 import org.springframework.util.StringUtils;
@@ -25,12 +27,11 @@ public class EmployeeService {
     private static final Logger logger = LoggerFactory.getLogger(EmployeeService.class);
 
     @Autowired EmployeeRepository employeeRepository;
+    @Autowired EmployeePhoneRepository employeePhoneRepository;
 
     public BaseResponseDTO createEmployee(final CreateEmployeeRequestDTO createEmployeeRequestDTO) {
-        logger.info("createEmployee API logic start   : ");
-        if(!CollectionUtils.isEmpty(employeeValidation(createEmployeeRequestDTO))){
-            throw new InvalidParameterException(createEmployeeRequestDTO, employeeValidation(createEmployeeRequestDTO) );
-        }
+        logger.info("createEmployee API logic start  createEmployee: " +createEmployeeRequestDTO);
+        employeeValidation(createEmployeeRequestDTO);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Employee employeeEntity = Employee.builder()
                 .employeeId(createEmployeeRequestDTO.getEmployeeId())
@@ -41,13 +42,23 @@ public class EmployeeService {
                 .salary(createEmployeeRequestDTO.getSalary())
                 .build();
         employeeRepository.save(employeeEntity);
+        List<Integer> phoneNumbers = createEmployeeRequestDTO.getPhoneNumbers();
+        logger.info("createEmployee API getPhoneNumbers   : " + createEmployeeRequestDTO.getPhoneNumbers());
+        for(Integer phone : phoneNumbers) {
+        	EmployeePhone employeePhone = EmployeePhone.builder()
+        			                      .phoneNumber(phone)
+        			                      .employee(employeeEntity)
+        			                      .build();
+        	employeePhoneRepository.save(employeePhone);
+        }
         final BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
         baseResponseDTO.setStatus("success");
         baseResponseDTO.setResponseMessage("Employee created successfully");
         return  baseResponseDTO;
 
     }
-    private List<ErrorDTO> employeeValidation(final CreateEmployeeRequestDTO createEmployeeRequestDTO){
+
+    private void employeeValidation(final CreateEmployeeRequestDTO createEmployeeRequestDTO){
         List<ErrorDTO> errors = new ArrayList<>();
         if(!StringUtils.hasLength(createEmployeeRequestDTO.getEmployeeId())){
             errors.add(ErrorDTO.build(ErrorCode.EMP_1000));
@@ -55,11 +66,24 @@ public class EmployeeService {
         if(!StringUtils.hasLength(createEmployeeRequestDTO.getFirstName())){
             errors.add(ErrorDTO.build(ErrorCode.EMP_1001));
         }
-        if(!StringUtils.hasLength(createEmployeeRequestDTO.getEmail())){
-            errors.add(ErrorDTO.build(ErrorCode.EMP_1002));
+        if(!StringUtils.hasLength(createEmployeeRequestDTO.getLastName())){
+            errors.add(ErrorDTO.build(ErrorCode.EMP_1003));
         }
-        logger.info("createEmployee API logic start   : "+errors);
-        return  errors;
+        if(!StringUtils.hasLength(createEmployeeRequestDTO.getEmail())){
+            errors.add(ErrorDTO.build(ErrorCode.EMP_1003));
+        }
+        if(!StringUtils.hasLength(createEmployeeRequestDTO.getDoj())){
+            errors.add(ErrorDTO.build(ErrorCode.EMP_1004));
+        }
+        if(createEmployeeRequestDTO.getSalary() == null || createEmployeeRequestDTO.getSalary() < 0 ){
+            errors.add(ErrorDTO.build(ErrorCode.EMP_1005));
+        }
+        logger.info("employeeValidation API logic start   : "+errors);
+        if(!errors.isEmpty()) {
+        	logger.info("employeeValidation API logic start   : "+errors);
+        throw new InvalidParameterException(errors );
+        }
+        
     }
 
     public BaseResponseDTO getTaxDeductions(){

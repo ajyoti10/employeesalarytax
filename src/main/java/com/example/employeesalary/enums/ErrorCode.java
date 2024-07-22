@@ -3,10 +3,10 @@ package com.example.employeesalary.enums;
 public enum ErrorCode {
     EMP_1000("Employee id is mandtory!", ""),
     EMP_1001("First Name is mandtory!", ""),
-    EMP_1002("Email is mandtory!", ""),
-    EMP_1003("Salary is mandtory!!", ""),
-    EMP_1004("Email is invalid!", ""),
-    EMP_1007("Salery is mandtory","");
+    EMP_1002("lastName is mandtory!", ""),
+    EMP_1003("Email is mandtory!!", ""),
+    EMP_1004("doj is mandtory!", ""),
+    EMP_1005("Salery is mandtory","");
     ;
 
     private final String message;

@@ -5,6 +5,7 @@ import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Data
@@ -15,7 +16,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
-    @NotNull()
+
     @Column(name = "employee_id", unique = true)
     private String employeeId;
 
@@ -33,12 +34,15 @@ public class Employee {
 
     @Column(name = "salary")
     private Double salary;
+    
+    @OneToMany
+    private List<EmployeePhone> phoneNumbers;
 
     public Employee() {
     }
 
     // Parameterized constructor
-    public Employee(Integer id, String employeeId, String firstName, String lastName, String email, LocalDateTime doj, Double salary) {
+    public Employee(Integer id, String employeeId, String firstName, String lastName, String email, LocalDateTime doj, Double salary, List<EmployeePhone> phoneNumbers) {
         this.id = id;
         this.employeeId = employeeId;
         this.firstName = firstName;
@@ -46,6 +50,7 @@ public class Employee {
         this.email = email;
         this.doj = doj;
         this.salary = salary;
+        this.phoneNumbers = phoneNumbers;
     }
 
 }

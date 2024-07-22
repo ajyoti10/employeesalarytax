@@ -1,6 +1,6 @@
 package com.example.employeesalary;
 
-import com.example.employeesalary.controller.TestAPIController;
+import com.example.employeesalary.controller.EmployeeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,8 +9,7 @@ class EmployeeSalaryApplicationTests {
 
 	@Test
 	void contextLoads() {
-		TestAPIController testAPIController = new TestAPIController();
-		testAPIController.testAPI();
+		
 	}
 
 }
